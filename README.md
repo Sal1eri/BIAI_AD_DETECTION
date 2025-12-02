@@ -1,5 +1,5 @@
 # AD Detection
-
+Python version = 3.12
 | Method | Macro-F1 | Macro-AUC | Balanced Acc. | Cohen's $\kappa$ | MCC (Multi-class) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **VGG16 (2D-TL)** | | | | | |
