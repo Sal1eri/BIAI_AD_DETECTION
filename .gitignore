@@ -83,3 +83,6 @@ model_saves/
 # --------------------
 # 用于配置和缓存的 Hydra 文件
 .hydra
+# qiuyk
+dataset/
+
