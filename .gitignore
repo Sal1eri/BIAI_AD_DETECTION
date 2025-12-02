@@ -1,0 +1,85 @@
+# --------------------
+# 1. 操作系统和Python/虚拟环境
+# --------------------
+# 忽略所有编译的 Python 字节码文件
+*.pyc
+__pycache__/
+
+# 虚拟环境目录 (常见命名，可能需要根据你的实际环境名称修改)
+venv/
+env/
+.venv/
+.conda/
+.direnv/
+.virtual_documents/
+
+# 操作系统自动生成文件
+.DS_Store
+Thumbs.db
+
+# Pip 和 Poetry 锁文件 (如果你使用 Poetry 管理依赖)
+Pipfile.lock
+
+# --------------------
+# 2. 数据和结果 (重要的忽略项)
+# --------------------
+# 原始数据和处理后的数据目录
+data/
+datasets/
+raw_data/
+processed_data/
+
+# 日志、结果、临时文件和TensorBoard/MLFlow的输出
+logs/
+runs/
+results/
+outputs/
+temp/
+tmp/
+tb_logs/
+mlruns/
+
+# --------------------
+# 3. 模型权重和检查点 (必须忽略)
+# --------------------
+# 模型权重文件 (常见格式)
+*.pth
+*.pt
+*.h5
+*.weights
+*.onnx
+*.safetensors
+*.ckpt
+*.tflite
+
+# 模型检查点目录
+checkpoints/
+model_saves/
+
+# --------------------
+# 4. Jupyter/IPython Notebook 相关
+# --------------------
+# Jupyter 笔记本检查点目录
+.ipynb_checkpoints
+
+# 隐藏的 Jupyter 状态文件
+.jupyter/
+
+# --------------------
+# 5. IDE 和编辑器配置
+# --------------------
+# PyCharm/IntelliJ
+.idea/
+
+# VS Code
+.vscode/
+
+# Vim/Nano 临时文件
+*.swp
+*~
+
+# --------------------
+# 6. 其他常用工具
+# --------------------
+# 用于配置和缓存的 Hydra 文件
+.hydra
