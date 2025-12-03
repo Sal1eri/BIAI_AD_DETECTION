@@ -7,48 +7,48 @@ from sklearn.metrics import (
 )
 import numpy as np
 
-# --- 模拟数据 (假设是 3 分类问题: 0, 1, 2) ---
-# 真实标签
-y_true = [0, 1, 2, 0, 1, 2, 0, 2]
-# 模型预测的类别 (Hard labels)
-y_pred = [0, 2, 2, 0, 1, 1, 0, 2]
-# 模型预测的概率 (Softmax output, 形状为 [n_samples, n_classes])
-# 每一行加起来应该是 1
-y_prob = [
-    [0.8, 0.1, 0.1], # pred 0
-    [0.2, 0.3, 0.5], # pred 2 (Error)
-    [0.1, 0.2, 0.7], # pred 2
-    [0.9, 0.05, 0.05], # pred 0
-    [0.1, 0.8, 0.1], # pred 1
-    [0.3, 0.6, 0.1], # pred 1 (Error)
-    [0.7, 0.2, 0.1], # pred 0
-    [0.1, 0.1, 0.8]  # pred 2
-]
 
-# --- 1. Macro-F1 ---
-# 'macro': 计算每个类别的 F1，然后取未加权的平均值
-macro_f1 = f1_score(y_true, y_pred, average='macro')
+def get_classification_metrics(y_true, y_pred, y_prob):
+    """
+    计算多分类任务的多种评价指标。
 
-# --- 2. Macro-AUC (需要概率) ---
-# multi_class='ovr': 一对多 (One-vs-Rest) 策略，适合 Macro 计算
-macro_auc = roc_auc_score(y_true, y_prob, multi_class='ovr', average='macro')
+    参数:
+    y_true: 真实标签列表
+    y_pred: 预测标签列表
+    y_prob: 预测概率列表 (形状为 [n_samples, n_classes])
 
-# --- 3. Balanced Accuracy ---
-# 自动处理不平衡样本，计算每个类别的 Recall 平均值
-balanced_acc = balanced_accuracy_score(y_true, y_pred)
+    返回:
+    metrics: 字典，包含各项指标的值
+    """
+    metrics = {}
+    metrics['Macro-F1'] = f1_score(y_true, y_pred, average='macro')
+    metrics['Macro-AUC'] = roc_auc_score(y_true, y_prob, multi_class='ovr', average='macro')
+    metrics['Balanced Accuracy'] = balanced_accuracy_score(y_true, y_pred)
+    metrics["Cohen's Kappa"] = cohen_kappa_score(y_true, y_pred)
+    metrics['MCC'] = matthews_corrcoef(y_true, y_pred)
+    
+    return metrics
 
-# --- 4. Cohen's Kappa ---
-# 衡量一致性，排除偶然猜对的概率
 
-kappa = cohen_kappa_score(y_true, y_pred)
-
-# --- 5. MCC (Multi-class) ---
-# 马修斯相关系数，被认为是处理不平衡数据最稳健的指标之一
-mcc = matthews_corrcoef(y_true, y_pred)
-
-# --- 输出结果 ---
-print(f"Macro-F1:       {macro_f1:.4f}")
-print(f"Macro-AUC:      {macro_auc:.4f}")
-print(f"Balanced Acc:   {balanced_acc:.4f}")
-print(f"Cohen's Kappa:  {kappa:.4f}")
-print(f"MCC:            {mcc:.4f}")
+if __name__ == "__main__":
+    
+    # --- 模拟数据 (假设是 3 分类问题: 0, 1, 2) ---
+    # 真实标签
+    y_true = [0, 1, 2, 0, 1, 2, 0, 2]
+    # 模型预测的类别 (Hard labels)
+    y_pred = [0, 2, 2, 0, 1, 1, 0, 2]
+    # 模型预测的概率 (Softmax output, 形状为 [n_samples, n_classes])
+    # 每一行加起来应该是 1
+    y_prob = [
+        [0.8, 0.1, 0.1], # pred 0
+        [0.2, 0.3, 0.5], # pred 2 (Error)
+        [0.1, 0.2, 0.7], # pred 2
+        [0.9, 0.05, 0.05], # pred 0
+        [0.1, 0.8, 0.1], # pred 1
+        [0.3, 0.6, 0.1], # pred 1 (Error)
+        [0.7, 0.2, 0.1], # pred 0
+        [0.1, 0.1, 0.8]  # pred 2
+    ]
+    metrics = get_classification_metrics(y_true, y_pred, y_prob)
+    for metric_name, value in metrics.items():
+        print(f"{metric_name}: {value:.4f}")
