@@ -4,9 +4,7 @@ from torchvision import models
 
 class VGG16ForAD(nn.Module):
     def __init__(self, num_classes=5):
-        """
-        用于 AD 诊断的 VGG16 模型 (全参数微调模式)
-        
+        """        
         Args:
             num_classes (int): 分类数量 (默认 5: CN, SMC, EMCI, LMCI, AD)
         """
@@ -35,4 +33,4 @@ if __name__ == "__main__":
     print("-" * 30)
     print(f"   Total parameters: {total_params:,}")
     print(f"   Trainable parameters: {trainable_params:,}")
-    
+    print("-" * 30)
