@@ -7,20 +7,22 @@ model:
 training:
   batch_size: 32
   epochs: 200
+  save_path: 'checkpoints/vgg16/vgg16_best.pth'
   optimizer:
     name: 'adam'
     weight_decay: 1e-4
     lr: 1e-3
   early_stopping:
     monitor: 'val_loss'  
-    patience: 20         
+    patience: 10         
   loss:
     name: 'WeightedCategoricalCrossEntropy' 
 
 data:
-  train_csv: 'dataset/configs/split_results/train_split_70.csv'
-  val_csv: 'dataset/configs/split_results/val_split_10.csv'
-  test_csv: 'dataset/configs/split_results/test_split_20.csv'
+  train_csv: 'configs/split_results/train_split_70.csv'
+  val_csv: 'configs/split_results/val_split_10.csv'
+  test_csv: 'configs/split_results/test_split_20.csv'
+  data_root_dir: 'dataset/ADNI/ADNI'
   augmentation:
     random_affine:
       p: 0.5

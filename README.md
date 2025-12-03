@@ -15,10 +15,9 @@ follow the setup below to initial env
 ```
 
 
-
-| Method | Params | Macro-F1 | Macro-AUC | Balanced Acc. | Cohen's $\kappa$ | MCC (Multi-class) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **VGG16 (2D-TL)** | 134.3 M | | | | | |
-| **3D-ResNet** | | | | | | |
-| **3D-ViT (SOTA)** | | | | | | |
-| **P3D-AttnNet (Ours)** | | | | | | |
+| Method | Params | Accuracy | Macro-F1 | Macro-AUC | Balanced Acc. | Cohen's $\kappa$ | MCC (Multi-class) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **VGG16 (2D-TL)** | 134.3 M | 0.4146 | 0.4245 | 0.8082 | 0.4467 | 0.2483 | 0.2918 |
+| **3D-ResNet** | | | | | | | |
+| **3D-ViT (SOTA)** | | | | | | | |
+| **P3D-AttnNet (Ours)** | | | | | | | |
