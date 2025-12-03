@@ -22,8 +22,10 @@ follow the setup below to initial env
 | **3D-ViT (SOTA)** | | | | | | | |
 | **P3D-AttnNet (Ours)** | | | | | | | |
 
+
+
+
 The VGG16 2D IMAGE Come from the combination of 3 slice like the image below.
 
-
-[!demo](demo.png)
+[!demo image](./slice_views/axial.png)
 
