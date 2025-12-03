@@ -21,3 +21,9 @@ follow the setup below to initial env
 | **3D-ResNet** | 33.4M | 0.6097 | 0.6620 | 0.8351 | 0.6666 | 0.5034 | 0.5064 |
 | **3D-ViT (SOTA)** | | | | | | | |
 | **P3D-AttnNet (Ours)** | | | | | | | |
+
+The VGG16 2D IMAGE Come from the combination of 3 slice like the image below.
+
+
+[!demo](./demo.png "Demo")
+
