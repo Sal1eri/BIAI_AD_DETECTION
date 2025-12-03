@@ -32,11 +32,8 @@ The VGG16 2D IMAGE Come from the combination of 3 slice like the image below.
 </p>
 
 <p align="center">
-  <img src="view_sample.png" alt="Demo Image" width="600"/>
-</p>
-
-<p align="center">
   <img src="./slice_views/axial.png" alt="Axial" width="180" style="display:inline-block; margin-right:10px;"/>
   <img src="./slice_views/coronal.png" alt="Coronal" width="180" style="display:inline-block; margin-right:10px;"/>
   <img src="./slice_views/sagittal.png" alt="Sagittal" width="180" style="display:inline-block;"/>
+  <img src="view_sample.png" alt="Sagittal" width="180" style="display:inline-block;"/>
 </p>
