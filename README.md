@@ -25,5 +25,5 @@ follow the setup below to initial env
 The VGG16 2D IMAGE Come from the combination of 3 slice like the image below.
 
 
-[!demo](./demo.png "Demo")
+[!demo](demo.png)
 
