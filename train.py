@@ -1,4 +1,5 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"  # 指定使用的 GPU 编号
 import glob
 import pandas as pd
 import numpy as np
