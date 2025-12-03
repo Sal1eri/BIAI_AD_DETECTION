@@ -10,7 +10,7 @@ class VGG16ForAD(nn.Module):
         """
         super(VGG16ForAD, self).__init__()
         
-
+        self.num_classes = num_classes
         self.vgg16 = models.vgg16(weights=models.VGG16_Weights.DEFAULT)
         
         # 修改分类头 (Classifier)
@@ -22,8 +22,17 @@ class VGG16ForAD(nn.Module):
         # 替换最后一层，新层的权重默认是随机初始化的
         self.vgg16.classifier[6] = nn.Linear(in_features, num_classes)
         
+    def save_model(self, path):
+        torch.save(self.state_dict(), path)
+
+    def load_model(self, path):
+        state_dict = torch.load(path)
+        self.load_state_dict(state_dict)
+        self.eval()
+
     def forward(self, x):
         return self.vgg16(x)
+    
 if __name__ == "__main__":
     model = VGG16ForAD(num_classes=5)
     

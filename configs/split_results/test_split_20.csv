@@ -1,0 +1,42 @@
+Image Data ID,Subject,Group,Sex,Age,Visit,Modality,Description,Type,Acq Date,Format,Downloaded
+I387736,003_S_1059,AD,F,85,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,11/09/2006,NiFTI,Yes
+I812591,127_S_4928,LMCI,M,82,v41,MRI,"Spatially Normalized, Masked and N3 corrected T1 image",Pre-processed,9/20/2016,NiFTI,Yes
+I362907,941_S_4377,LMCI,F,71,v11,MRI,MT1; GradWarp; N3m,Pre-processed,3/05/2013,NiFTI,Yes
+I334178,006_S_4713,MCI,M,71,v04,MRI,MT1; N3m,Pre-processed,8/13/2012,NiFTI,Yes
+I387771,123_S_0088,AD,M,66,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,1/06/2006,NiFTI,Yes
+I272692,135_S_4406,LMCI,M,79,v02,MRI,MT1; GradWarp; N3m,Pre-processed,12/07/2011,NiFTI,Yes
+I474814,123_S_0162,AD,M,73,m06,MRI,HarP 135 final release 2015,Pre-processed,11/02/2006,NiFTI,Yes
+I293757,022_S_1351,MCI,F,76,m48,MRI,MT1; GradWarp; N3m,Pre-processed,4/15/2011,NiFTI,Yes
+I388314,006_S_4679,EMCI,M,70,v11,MRI,MT1; N3m,Pre-processed,7/18/2013,NiFTI,Yes
+I387795,012_S_1292,MCI,M,77,m12,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,3/25/2008,NiFTI,Yes
+I387754,011_S_0856,MCI,M,60,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,9/15/2006,NiFTI,Yes
+I387737,003_S_1122,MCI,F,77,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,12/06/2006,NiFTI,Yes
+I387740,005_S_1341,AD,F,72,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,3/07/2007,NiFTI,Yes
+I314481,135_S_4406,LMCI,M,79,v05,MRI,MT1; GradWarp; N3m,Pre-processed,6/06/2012,NiFTI,Yes
+I387789,007_S_4387,CN,F,76,v02,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,12/05/2011,NiFTI,Yes
+I40973,002_S_0295,CN,M,85,m06,MRI,MPR-R; GradWarp,Pre-processed,11/02/2006,NiFTI,Yes
+I412365,002_S_1155,MCI,M,63,v06,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,12/22/2011,NiFTI,Yes
+I70838,128_S_0528,AD,F,72,m12,MRI,MPR; GradWarp; B1 Correction; N3,Pre-processed,5/17/2007,NiFTI,Yes
+I387805,023_S_0916,AD,M,82,m24,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,9/30/2008,NiFTI,Yes
+I387732,003_S_0907,CN,F,89,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,9/11/2006,NiFTI,Yes
+I374617,031_S_4721,LMCI,M,87,v11,MRI,MT1; N3m,Pre-processed,5/23/2013,NiFTI,Yes
+I294868,941_S_4420,EMCI,M,81,v02,MRI,MT1; GradWarp; N3m,Pre-processed,3/28/2012,NiFTI,Yes
+I387758,016_S_1092,MCI,M,74,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,12/11/2006,NiFTI,Yes
+I387752,011_S_0183,AD,F,72,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,3/03/2006,NiFTI,Yes
+I412379,029_S_4279,CN,M,84,v02,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,11/09/2011,NiFTI,Yes
+I322904,941_S_4420,EMCI,M,82,v04,MRI,MT1; GradWarp; N3m,Pre-processed,6/27/2012,NiFTI,Yes
+I387751,011_S_0016,CN,M,66,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,9/27/2005,NiFTI,Yes
+I75154,941_S_1202,CN,M,78,m06,MRI,MPR-R; GradWarp; B1 Correction; N3,Pre-processed,8/24/2007,NiFTI,Yes
+I290942,135_S_4406,LMCI,M,79,v04,MRI,MT1; GradWarp; N3m,Pre-processed,3/07/2012,NiFTI,Yes
+I387761,073_S_0089,CN,M,65,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,1/26/2006,NiFTI,Yes
+I63876,941_S_1202,CN,M,78,sc,MRI,MPR-R; GradWarp,Pre-processed,1/30/2007,NiFTI,Yes
+I42846,033_S_1116,MCI,M,83,sc,MRI,MPR; GradWarp,Pre-processed,11/21/2006,NiFTI,Yes
+I102192,141_S_0790,AD,F,85,m12,MRI,MPR-R; GradWarp,Pre-processed,12/04/2007,NiFTI,Yes
+I87226,013_S_0996,AD,F,91,m06,MRI,MPR-R; GradWarp; B1 Correction; N3,Pre-processed,5/01/2007,NiFTI,Yes
+I75155,941_S_1202,CN,M,78,m06,MRI,MPR-R; GradWarp; B1 Correction,Pre-processed,8/24/2007,NiFTI,Yes
+I387774,123_S_0108,MCI,M,78,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,2/01/2006,NiFTI,Yes
+I412362,130_S_0956,AD,F,66,m24,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,11/03/2008,NiFTI,Yes
+I412371,011_S_0005,CN,M,74,sc,MRI,HHP 6 DOF AC-PC registered MPRAGE,Pre-processed,9/02/2005,NiFTI,Yes
+I376831,153_S_4838,EMCI,M,76,v05,MRI,MT1; GradWarp; N3m,Pre-processed,3/19/2013,NiFTI,Yes
+I379080,941_S_4764,EMCI,F,84,v11,MRI,MT1; GradWarp; N3m,Pre-processed,6/10/2013,NiFTI,Yes
+I102555,137_S_0668,MCI,M,75,m18,MRI,MPR; GradWarp; N3; Scaled,Pre-processed,3/11/2008,NiFTI,Yes

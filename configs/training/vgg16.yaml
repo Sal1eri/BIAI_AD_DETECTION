@@ -1,0 +1,33 @@
+model:
+  name: vgg16
+  num_classes: 5
+  in_channels: 3
+#   init_filters: 4
+
+training:
+  batch_size: 32
+  epochs: 100
+  optimizer:
+    name: 'adam'
+    weight_decay: 0
+    lr: 1e-4
+  scheduler:
+    name: 'CosineAnnealingLR'
+    t_max: 100
+    lr_max: 1e-4
+    lr_min: 2e-6
+
+data:
+  trainval_csv: '/project/aereditato/cestari/adni-mri-classification/data/preprocessing_dicom_spm_2/data/trainval.csv'     
+  test_csv: '/project/aereditato/cestari/adni-mri-classification/data/preprocessing_dicom_spm_2/data/test.csv'    
+  augmentation:
+    random_flip:
+      p: 0.5
+    random_affine:
+      p: 0.3
+      degrees: 0
+      translation: 10
+
+cross_validation:
+  method: holdout
+  val_fraction: 0.2
