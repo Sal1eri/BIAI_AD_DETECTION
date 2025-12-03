@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader
 from utils.dataset import ADNIDataset, load_config
 from utils.metric import get_classification_metrics
 from model.vgg16 import VGG16ForAD
+from model.ResNet import ResNet3D
 from tqdm import tqdm
 import torch.nn as nn
 
@@ -23,7 +24,8 @@ def test(config, model_path=None):
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     
     # 加载模型
-    model = VGG16ForAD().to(device)
+    # model = VGG16ForAD().to(device)
+    model = ResNet3D().to(device)
     if model_path is None:
         model_path = config['training']['save_path']
     model.load_state_dict(torch.load(model_path, map_location=device))
@@ -63,7 +65,7 @@ def test(config, model_path=None):
 # 使用方法
 # ------------------------
 if __name__ == "__main__":
-    model_name = "vgg16"
+    model_name = "resnet"
     cfg_path = os.path.join("configs", "training", f"{model_name}.yaml")
     config = load_config(cfg_path)
     

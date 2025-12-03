@@ -3,6 +3,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 from utils.dataset import *
 from utils.metric import get_classification_metrics
 from model.vgg16 import VGG16ForAD
+from model.ResNet import ResNet3D
 import torch
 from torch.utils.data import DataLoader
 import torch.nn as nn
@@ -17,7 +18,8 @@ def train(config):
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
-    model = VGG16ForAD()
+    # model = VGG16ForAD()
+    model = ResNet3D()
     model = model.to(device)
 
     criterion = nn.CrossEntropyLoss()
@@ -85,7 +87,7 @@ def train(config):
 
 
 if __name__ == "__main__":
-    model_name = "vgg16"
+    model_name = "resnet"
     cfg_path = os.path.join("configs", "training", f"{model_name}.yaml")
     config = load_config(cfg_path)
     print(config)

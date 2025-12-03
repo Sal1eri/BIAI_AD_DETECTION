@@ -1,0 +1,32 @@
+model:
+  name: resnet
+  num_classes: 5
+  in_channels: 1
+
+training:
+  batch_size: 32
+  epochs: 200
+  save_path: 'checkpoints/resnet/resnet_best.pth'
+  optimizer:
+    name: 'adam'
+    weight_decay: 1e-4
+    lr: 1e-3
+  early_stopping:
+    monitor: 'val_loss'  
+    patience: 10         
+  loss:
+    name: 'WeightedCategoricalCrossEntropy' 
+
+data:
+  train_csv: 'configs/split_results/train_split_70.csv'
+  val_csv: 'configs/split_results/val_split_10.csv'
+  test_csv: 'configs/split_results/test_split_20.csv'
+  data_root_dir: 'dataset/ADNI/ADNI'
+  augmentation:
+    random_affine:
+      p: 0.5
+      degrees: 10
+      translate: [0.1, 0.1]
+      scale: [0.9, 1.1]
+    random_flip:
+      p: 0.5            

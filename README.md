@@ -18,6 +18,6 @@ follow the setup below to initial env
 | Method | Params | Accuracy | Macro-F1 | Macro-AUC | Balanced Acc. | Cohen's $\kappa$ | MCC (Multi-class) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **VGG16 (2D-TL)** | 134.3 M | 0.4146 | 0.4245 | 0.8082 | 0.4467 | 0.2483 | 0.2918 |
-| **3D-ResNet** | | | | | | | |
+| **3D-ResNet** | 33.4M | 0.6097 | 0.6620 | 0.8351 | 0.6666 | 0.5034 | 0.5064 |
 | **3D-ViT (SOTA)** | | | | | | | |
 | **P3D-AttnNet (Ours)** | | | | | | | |

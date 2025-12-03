@@ -40,7 +40,75 @@ def load_config(config_path):
         config = yaml.safe_load(file)
     return config
 
+class ADNI3DDataset(Dataset):
+    def __init__(self, csv_file, root_dir, resize=(32, 112, 112), transform=None):
+        """
+        Args:
+            csv_file: CSV 文件路径
+            root_dir: MRI 数据根目录
+            resize: (D, H, W) 目标体积大小
+            transform: 可选 torchvision transform
+        """
+        self.resize = resize
+        self.transform = transform
+        self.samples = []
 
+        df = pd.read_csv(csv_file)
+        for _, row in df.iterrows():
+            group = row['Group']
+            if group not in LABEL_MAP:
+                continue
+            path = find_nii_path(root_dir, row['Subject'], row['Image Data ID'])
+            if path:
+                self.samples.append({
+                    'path': path,
+                    'label': LABEL_MAP[group]
+                })
+
+    def __len__(self):
+        return len(self.samples)
+
+    def _load_and_resize(self, nii_path):
+        # 读取 NIfTI
+        img = nib.load(nii_path)
+        img = nib.as_closest_canonical(img)
+        volume = img.get_fdata(dtype=np.float32)
+
+        # Percentile clip
+        p1, p99 = np.percentile(volume, (1, 99))
+        volume = np.clip(volume, p1, p99)
+
+        # Resize depth (D)
+        D, H, W = self.resize
+        z = np.linspace(0, volume.shape[2]-1, D).astype(np.int32)
+        volume = volume[:, :, z]
+
+        # Resize H/W
+        resized_slices = []
+        for i in range(volume.shape[2]):
+            slice_resized = cv2.resize(volume[:, :, i], (W, H), interpolation=cv2.INTER_LINEAR)
+            resized_slices.append(slice_resized)
+        volume_resized = np.stack(resized_slices, axis=2)  # (H, W, D)
+
+        # Normalize
+        volume_resized = (volume_resized - volume_resized.mean()) / (volume_resized.std() + 1e-5)
+
+        # 转成 (C, D, H, W)
+        volume_resized = volume_resized[np.newaxis, ...]  # C=1
+        volume_resized = np.transpose(volume_resized, (0, 2, 1, 3))  # (1, D, H, W)
+        return volume_resized.astype(np.float32)
+
+    def __getitem__(self, idx):
+        item = self.samples[idx]
+        volume = self._load_and_resize(item['path'])
+        volume = torch.from_numpy(volume)
+
+        if self.transform:
+            volume = self.transform(volume)
+
+        label = torch.tensor(item['label'], dtype=torch.long)
+        return volume, label
+    
 class ADNI2DDataset(Dataset):
     def __init__(self, csv_file, root_dir, transform=None, single_slice_mode=False):
         """
@@ -145,10 +213,18 @@ class ADNIDataset:
         self.config = load_config(cfg_pth)
         self._loader_map = {
             "vgg16": self._load_vgg16_data,
+            "resnet": self._load_resnet_data,
         }
     def load_data(self, split='train'):
         return self._loader_map[self.model_name](split)
-  
+    
+    def _load_resnet_data(self, split='train'):
+        assert split in ['train', 'val', 'test'], "Split must be 'train', 'val', or 'test'"
+
+        csv_path = self.config['data'][f"{split}_csv"]
+        root_dir = self.config['data']['data_root_dir']
+        dataset = ADNI3DDataset(csv_file=csv_path, root_dir=root_dir)
+        return dataset
     def _load_vgg16_data(self, split='train'):
         assert split in ['train', 'val', 'test'], "Split must be 'train', 'val', or 'test'"
         csv_path = self.config['data'][f"{split}_csv"]
