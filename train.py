@@ -9,19 +9,17 @@ import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader, Subset
 from torchvision import transforms, models
 from PIL import Image
-from tqdm import tqdm  # 用于显示进度条
+from tqdm import tqdm  
+from model.vgg16 import VGG16ForAD
 import time
 
-# ==========================================
-# 1. 配置参数
-# ==========================================
 CSV_PATH = "./dataset/5_class_10_12_2025.csv"
 DATA_ROOT = "./dataset/ADNI/ADNI"
 IMG_SIZE = 224
-BATCH_SIZE = 16          # 如果显存不够，改小这个数字 (例如 8 或 16)
-LEARNING_RATE = 1e-4     # 学习率
-NUM_EPOCHS = 10          # 训练轮数
-NUM_CLASSES = 5          # 5分类
+BATCH_SIZE = 16          
+LEARNING_RATE = 1e-4     
+NUM_EPOCHS = 10          
+NUM_CLASSES = 5          
 
 # 标签映射
 LABEL_MAP = {
@@ -34,13 +32,10 @@ LABEL_MAP = {
 
 # 设备配置
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"🔥 使用设备: {device}")
+print(f"Using device: {device}")
 
-# ==========================================
-# 2. 辅助函数 & Dataset 定义
-# ==========================================
 def find_nii_path(root_dir, subject_id, image_id):
-    """在 Subject 文件夹下递归查找具体的 NIfTI 文件"""
+    """Recursively find the specific NIfTI file under the Subject folder"""
     subject_dir = os.path.join(root_dir, subject_id)
     if not os.path.exists(subject_dir):
         return None
@@ -55,7 +50,7 @@ def find_nii_path(root_dir, subject_id, image_id):
     return None
 
 def extract_middle_slice(nii_path):
-    """读取 NIfTI 并提取冠状面(Coronal)中间切片"""
+    """Read NIfTI and extract the middle coronal slice"""
     try:
         img = nib.load(nii_path)
         data = img.get_fdata()
@@ -66,8 +61,6 @@ def extract_middle_slice(nii_path):
         
         # 旋转校正
         slice_2d = np.rot90(slice_2d)
-        
-        # !!! 重要：移除了 plt.show() 以免阻断训练流程 !!!
         
         # 归一化 (Min-Max) -> 0-255
         d_min, d_max = slice_2d.min(), slice_2d.max()
@@ -124,25 +117,8 @@ class ADNI2DDataset(Dataset):
             
         return img, item['label']
 
-# ==========================================
-# 3. 定义 VGG16 模型
-# ==========================================
-class VGG16ForAD(nn.Module):
-    def __init__(self, num_classes=5):
-        super(VGG16ForAD, self).__init__()
-        # 加载预训练权重
-        self.vgg16 = models.vgg16(weights=models.VGG16_Weights.DEFAULT)
-        
-        # 修改分类层
-        in_features = self.vgg16.classifier[6].in_features
-        self.vgg16.classifier[6] = nn.Linear(in_features, num_classes)
-        
-    def forward(self, x):
-        return self.vgg16(x)
 
-# ==========================================
-# 4. 训练与验证函数
-# ==========================================
+
 def train_one_epoch(model, loader, criterion, optimizer):
     model.train()
     running_loss = 0.0
@@ -194,12 +170,9 @@ def evaluate(model, loader, criterion):
     acc = 100 * correct / total
     return loss, acc
 
-# ==========================================
-# 5. 主程序
-# ==========================================
+
 if __name__ == "__main__":
-    # --- A. 数据准备 ---
-    print("\n[Step 1] 准备数据...")
+    print("\n[Step 1] split dataset...")
     data_transforms = transforms.Compose([
         transforms.Resize((IMG_SIZE, IMG_SIZE)),
         transforms.ToTensor(),
@@ -207,20 +180,17 @@ if __name__ == "__main__":
     ])
     
     full_dataset = ADNI2DDataset(CSV_PATH, DATA_ROOT, transform=data_transforms)
-    
-    # --- B. 按顺序切分数据集 (7:1:2) ---
+    # 按 7:1:2 划分训练/验证/测试集    
     total_len = len(full_dataset)
     train_len = int(total_len * 0.7)
     val_len = int(total_len * 0.1)
     test_len = total_len - train_len - val_len
     
-    # 生成有序索引
     indices = list(range(total_len))
     train_idx = indices[:train_len]
     val_idx = indices[train_len : train_len + val_len]
     test_idx = indices[train_len + val_len :]
     
-    print(f"📊 数据划分 (Sequential Split):")
     print(f"   Train: {len(train_idx)} (0 - {train_len-1})")
     print(f"   Val:   {len(val_idx)} ({train_len} - {train_len+val_len-1})")
     print(f"   Test:  {len(test_idx)} ({train_len+val_len} - {total_len-1})")
@@ -230,22 +200,18 @@ if __name__ == "__main__":
     val_set   = Subset(full_dataset, val_idx)
     test_set  = Subset(full_dataset, test_idx)
     
-    # 创建 DataLoader
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True) # 训练内部可以打乱
     val_loader   = DataLoader(val_set, batch_size=BATCH_SIZE, shuffle=False)
     test_loader  = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=False)
     
-    # --- C. 模型初始化 ---
-    print("\n[Step 2] 初始化模型...")
+    print("\n[Step 2] initial...")
     model = VGG16ForAD(num_classes=NUM_CLASSES)
     model = model.to(device)
     
-    # 定义损失函数和优化器
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
     
-    # --- D. 开始训练 ---
-    print(f"\n[Step 3] 开始训练 ({NUM_EPOCHS} Epochs)...")
+    print(f"\n[Step 3] training ({NUM_EPOCHS} Epochs)...")
     start_time = time.time()
     
     for epoch in range(NUM_EPOCHS):
@@ -260,9 +226,9 @@ if __name__ == "__main__":
               f"Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.2f}%")
               
     total_time = time.time() - start_time
-    print(f"\n✨ 训练完成! 总耗时: {total_time:.0f}s")
+    print(f"\nCost Time: {total_time:.0f}s")
     
     # --- E. 最终测试 ---
-    print("\n[Step 4] 在测试集上进行最终评估...")
+    print("\n[Step 4] Testting...")
     test_loss, test_acc = evaluate(model, test_loader, criterion)
-    print(f"🏆 Test Set Accuracy: {test_acc:.2f}%")
+    print(f"Test Set Accuracy: {test_acc:.2f}%")
