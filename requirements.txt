@@ -8,3 +8,7 @@ scikit_learn==1.7.2
 torch==2.5.0+cu121
 torchvision==0.20.0+cu121
 tqdm==4.67.1
+matplotlib
+seaborn
+einops
+timm
