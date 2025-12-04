@@ -23,7 +23,15 @@ follow the setup below to initial env
 | **P3D-AttnNet (Ours)** | | | | | | | |
 
 
+## Supported Models
 
+You can now train the following models by modifying the configuration files in `configs/training/`:
+
+  * **VGG16**: 2D Transfer Learning baseline.
+  * **3D-ResNet**: Standard 3D Convolutional Network.
+  * **HCCT-ViT**: Hybrid Compact Convolution Transformer.
+  * **3D-ViT**: Standard Vision Transformer for 3D volumes.
+  * **Swin-CNN**: Combination of Swin Transformer and 3D CNN.
 
 The VGG16 2D IMAGE Come from the combination of 3 slice like the image below.
 
@@ -37,3 +45,5 @@ The VGG16 2D IMAGE Come from the combination of 3 slice like the image below.
   <img src="./slice_views/sagittal.png" alt="Sagittal" width="180" style="display:inline-block;"/>
   <img src="./slice_views/view_sample.png" alt="Sagittal" width="180" style="display:inline-block;"/>
 </p>
+
+
